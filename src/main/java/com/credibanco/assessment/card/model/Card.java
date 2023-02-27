@@ -1,5 +1,6 @@
 package com.credibanco.assessment.card.model;
 
+import java.math.BigInteger;
 import java.util.Random;
 
 import javax.persistence.Column;
@@ -7,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -28,8 +27,7 @@ public class Card {
 	@Column(name = "id_card")
 	private Long idCard;
 	
-	@Column(length = 19)
-	private Long numero;
+	private String numero;
 	
 	private String titular;
 	
@@ -43,10 +41,6 @@ public class Card {
 	
 	private String estado;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_compra", insertable = false, updatable = false)
-	private Compra compra;
-	
 	private int validacion;
 	
 	@PrePersist
@@ -54,5 +48,10 @@ public class Card {
 		Random random = new Random();
 		int numeroAleatorio = random.nextInt(100);
 		validacion = numeroAleatorio;
+		Random rand = new Random();
+	      BigInteger upperLimit = new BigInteger("9999999999999999999");
+	      BigInteger result = new BigInteger(upperLimit.bitLength(), rand);
+	      numero = result.toString();
+	      estado = "Creada";
 	}
 }
