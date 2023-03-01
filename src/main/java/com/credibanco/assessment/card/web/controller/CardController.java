@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.credibanco.assessment.card.model.Card;
 import com.credibanco.assessment.card.service.CardService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api")
@@ -34,6 +36,7 @@ public class CardController {
 		return service.findAll();
 	}
 	
+	@Operation(summary = "Crea un nueva card")
 	@PostMapping("/card")
 	public ResponseEntity<?> crear(@RequestBody Card card) {
 		Card cardNew = null;
